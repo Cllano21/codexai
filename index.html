@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planifica con Flow</title>
+  <style>
+    :root {
+      --bg1: #7f5af0;
+      --bg2: #2cb67d;
+      --bg3: #ff8906;
+      --card: #16161a;
+      --text: #fffffe;
+      --muted: #94a1b2;
+      --accent: #e53170;
+      --ok: #2cb67d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 250% 250%;
+      animation: fondo 12s ease infinite;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    @keyframes fondo {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .panel {
+      width: min(920px, 100%);
+      background: color-mix(in hsl, var(--card) 88%, transparent);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .highlight { color: #7fdbff; }
+
+    .intro {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 58ch;
+    }
+
+    .grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      border-radius: 16px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .4px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      color: #16161a;
+      background: #ffd803;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #f5f7ff;
+    }
+
+    li + li { margin-top: 6px; }
+
+    .footer {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #16161a;
+      background: #7fdbff;
+      transition: transform .15s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 20px rgba(127, 219, 255, .35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .progress {
+      width: 230px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.25);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 68%;
+      background: linear-gradient(90deg, #2cb67d, #7fdbff, #e53170);
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <h1>Tu semana, <span class="highlight">modo creativo</span> 🚀</h1>
+    <p class="intro">
+      Organiza tus metas sin perder el estilo. Una planificación clara te ayuda a estudiar, crear y descansar mejor.
+    </p>
+
+    <section class="grid" aria-label="Bloques de planificación">
+      <article class="card">
+        <span class="badge">LUN - MIE</span>
+        <h2>Focus profundo</h2>
+        <ul>
+          <li>Prioridad 1: proyecto principal</li>
+          <li>2 bloques Pomodoro de 45 min</li>
+          <li>Checklist de avances</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="badge">JUEVES</span>
+        <h2>Día social + ideas</h2>
+        <ul>
+          <li>Reunión de equipo</li>
+          <li>Brainstorm de nuevas metas</li>
+          <li>Tiempo para networking</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="badge">VIERNES</span>
+        <h2>Cierre y celebración</h2>
+        <ul>
+          <li>Revisión de objetivos cumplidos</li>
+          <li>Ajustes para la próxima semana</li>
+          <li>Mini premio personal 🎉</li>
+        </ul>
+      </article>
+    </section>
+
+    <div class="footer">
+      <button class="btn" type="button">Añadir nueva meta</button>
+      <div class="progress" aria-label="Progreso semanal"><span></span></div>
+      <span class="small">Progreso actual: 68%</span>
+    </div>
+  </main>
+</body>
+</html>
