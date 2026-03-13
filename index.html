@@ -3,194 +3,528 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Planifica con Flow</title>
+  <title>VDUEP · Informe 3T 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
     :root {
-      --bg1: #7f5af0;
-      --bg2: #2cb67d;
-      --bg3: #ff8906;
-      --card: #16161a;
-      --text: #fffffe;
-      --muted: #94a1b2;
-      --accent: #e53170;
-      --ok: #2cb67d;
+      --bg-1: #edf4ff;
+      --bg-2: #f8fbff;
+      --ink-900: #0f2544;
+      --ink-700: #25496c;
+      --ink-500: #4d6c89;
+      --line: rgba(108, 141, 171, 0.25);
+      --brand: #2563eb;
+      --brand-2: #0284c7;
+      --success: #0f766e;
+      --warning: #b45309;
+      --violet: #7c3aed;
+      --glass: rgba(255, 255, 255, 0.74);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+      --soft-shadow: 0 24px 50px rgba(26, 58, 104, 0.14);
+      --hard-shadow: 0 28px 70px rgba(18, 44, 84, 0.2);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
-      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--ink-700);
       min-height: 100vh;
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      color: var(--text);
-      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
-      background-size: 250% 250%;
-      animation: fondo 12s ease infinite;
+      padding: 34px;
+      background:
+        radial-gradient(circle at 8% 16%, rgba(59, 130, 246, 0.23), transparent 34%),
+        radial-gradient(circle at 92% 88%, rgba(14, 165, 233, 0.2), transparent 36%),
+        radial-gradient(circle at 52% 30%, rgba(124, 58, 237, 0.09), transparent 45%),
+        linear-gradient(130deg, var(--bg-1), var(--bg-2));
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      z-index: -1;
+      filter: blur(30px);
+      pointer-events: none;
+    }
+
+    body::before {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      top: -70px;
+      right: -70px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.32), transparent 65%);
+    }
+
+    body::after {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      bottom: -80px;
+      left: -70px;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.3), transparent 68%);
+    }
+
+    .dashboard {
+      max-width: 1520px;
+      margin: auto;
+      display: grid;
+      gap: 22px;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 30px 36px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -70px;
+      top: -110px;
+      width: 360px;
+      height: 300px;
+      border-radius: 46% 54% 53% 47%;
+      background: radial-gradient(circle at 30% 30%, rgba(37, 99, 235, 0.22), rgba(37, 99, 235, 0));
+      z-index: -1;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--brand);
+      padding: 8px 13px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: clamp(1.9rem, 3vw, 2.65rem);
+      line-height: 1.13;
+      letter-spacing: -0.025em;
+      color: var(--ink-900);
+      font-weight: 900;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-weight: 500;
+      color: var(--ink-500);
+      max-width: 72ch;
+    }
+
+    .chip-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      border-radius: var(--radius-pill);
+      padding: 11px 18px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(130deg, #1d4ed8, #0284c7);
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.34);
+    }
+
+    .chip-outline {
+      border-radius: var(--radius-pill);
+      padding: 10px 15px;
+      color: var(--ink-700);
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1px dashed rgba(37, 99, 235, 0.35);
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .units {
+      padding: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .unit {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: #fff;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(118, 151, 182, 0.24);
+      box-shadow: 0 8px 20px rgba(20, 59, 99, 0.08);
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #154062;
+      transition: transform .18s ease;
+    }
+
+    .unit:hover { transform: translateY(-2px); }
+
+    .unit i {
+      width: 27px;
+      height: 27px;
+      border-radius: 10px;
       display: grid;
       place-items: center;
-      padding: 24px;
-    }
-
-    @keyframes fondo {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .panel {
-      width: min(920px, 100%);
-      background: color-mix(in hsl, var(--card) 88%, transparent);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(10px);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.1;
-    }
-
-    .highlight { color: #7fdbff; }
-
-    .intro {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 58ch;
+      background: #e0f2fe;
+      color: var(--brand-2);
+      font-size: 0.84rem;
     }
 
     .grid {
-      margin-top: 24px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.74));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--soft-shadow);
+      position: relative;
+      overflow: hidden;
+      transition: .28s ease;
+      isolation: isolate;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -70px;
+      top: -70px;
+      border-radius: 46% 54% 58% 42%;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.13), rgba(37, 99, 235, 0));
+      z-index: -1;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--hard-shadow);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #12375a;
+      margin-bottom: 14px;
+      font-size: 1.06rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .card-header i {
+      color: var(--brand-2);
+      font-size: 1.18rem;
+    }
+
+    .big {
+      font-size: clamp(1.68rem, 2.5vw, 2.32rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--ink-900);
+      margin: 7px 0;
+      line-height: 1.1;
+    }
+
+    .stat {
+      color: var(--ink-500);
+      font-size: 0.93rem;
+      line-height: 1.45;
+    }
+
+    .risk {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      padding: 7px 12px;
+      margin-bottom: 8px;
+      background: #fff2e2;
+      border: 1px solid rgba(180, 83, 9, 0.24);
+      color: var(--warning);
+      font-weight: 800;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .risk::before {
+      content: '\f06a';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+    }
+
+    .pill {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      padding: 8px 12px;
+      background: rgba(2, 132, 199, 0.1);
+      color: #0f5f87;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .metric {
+      display: flex;
+      align-items: center;
       gap: 14px;
     }
 
-    .card {
-      border-radius: 16px;
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+    .circle {
+      --p: 55;
+      --tone: #0284c7;
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background:
+        radial-gradient(closest-side, #fff 76%, transparent 78% 100%),
+        conic-gradient(var(--tone) calc(var(--p) * 1%), #dbeafe 0);
+      border: 1px solid rgba(2, 132, 199, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+      display: grid;
+      place-items: center;
+      color: #0c4a6e;
+      font-weight: 800;
+      font-size: .78rem;
     }
 
-    .card h2 {
-      margin: 0 0 8px;
-      font-size: 1.1rem;
+    .circle.alt {
+      --p: 28;
+      --tone: #2563eb;
     }
 
-    .badge {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: .4px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      margin-bottom: 8px;
-      color: #16161a;
-      background: #ffd803;
+    .circle span {
+      transform: translateY(-1px);
+      opacity: .8;
     }
 
-    ul {
-      margin: 0;
-      padding-left: 18px;
-      color: #f5f7ff;
+    .list {
+      margin-top: 12px;
+      display: grid;
+      gap: 7px;
     }
 
-    li + li { margin-top: 6px; }
-
-    .footer {
-      margin-top: 20px;
+    .list-item {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      justify-content: space-between;
       align-items: center;
+      gap: 10px;
+      border-bottom: 1px dashed rgba(108, 141, 171, 0.32);
+      padding-bottom: 8px;
+      font-size: 0.89rem;
     }
 
-    .btn {
-      border: none;
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-weight: 700;
-      cursor: pointer;
-      color: #16161a;
-      background: #7fdbff;
-      transition: transform .15s ease, box-shadow .2s ease;
-      box-shadow: 0 8px 20px rgba(127, 219, 255, .35);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
+    .value {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: linear-gradient(120deg, #0f5f87, #1d4ed8);
     }
 
     .progress {
-      width: 230px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.25);
+      margin-top: 12px;
+      height: 12px;
+      border-radius: var(--radius-pill);
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,.2);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: #e2e8f0;
     }
 
-    .progress span {
+    .progress > span {
       display: block;
       height: 100%;
-      width: 68%;
-      background: linear-gradient(90deg, #2cb67d, #7fdbff, #e53170);
+      width: 55%;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6, #7c3aed);
+      box-shadow: 0 0 18px rgba(59, 130, 246, 0.5);
     }
 
-    .small {
-      color: var(--muted);
-      font-size: .9rem;
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.72);
+      box-shadow: var(--soft-shadow);
+      padding: 16px 20px;
+      color: #365977;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 1120px) {
+      .grid-3,
+      .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 780px) {
+      body { padding: 18px; }
+      .hero { padding: 22px; }
+      .grid-3,
+      .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 20px; }
     }
   </style>
 </head>
+
 <body>
-  <main class="panel">
-    <h1>Tu semana, <span class="highlight">modo creativo</span> 🚀</h1>
-    <p class="intro">
-      Organiza tus metas sin perder el estilo. Una planificación clara te ayuda a estudiar, crear y descansar mejor.
-    </p>
+  <main class="dashboard" aria-label="Dashboard ejecutivo VDUEP">
+    <header class="hero glass">
+      <div>
+        <span class="kicker"><i class="fa-solid fa-sparkles"></i> Reporte institucional</span>
+        <h1 class="title">VDUEP · Informe Ejecutivo 3er Trimestre 2025</h1>
+        <p class="subtitle">Empresa Pública de Vivienda y Desarrollo Urbano EP · Panorama estratégico y financiero del periodo julio-septiembre.</p>
+      </div>
 
-    <section class="grid" aria-label="Bloques de planificación">
+      <div class="chip-wrap">
+        <div class="chip">Julio – Septiembre 2025</div>
+        <div class="chip-outline">Actualización oficial · Decreto 412</div>
+      </div>
+    </header>
+
+    <section class="units glass" aria-label="Unidades participantes">
+      <div class="unit"><i class="fa-solid fa-diagram-project"></i>Gcia Técnica Proyectos</div>
+      <div class="unit"><i class="fa-solid fa-handshake"></i>Gcia Alianzas y Negocios</div>
+      <div class="unit"><i class="fa-solid fa-calculator"></i>Coord. Adm. Financiera</div>
+      <div class="unit"><i class="fa-solid fa-chart-line"></i>Coord. Planificación</div>
+      <div class="unit"><i class="fa-solid fa-gavel"></i>Coord. Jurídica</div>
+    </section>
+
+    <section class="grid grid-3">
       <article class="card">
-        <span class="badge">LUN - MIE</span>
-        <h2>Focus profundo</h2>
-        <ul>
-          <li>Prioridad 1: proyecto principal</li>
-          <li>2 bloques Pomodoro de 45 min</li>
-          <li>Checklist de avances</li>
-        </ul>
+        <h2 class="card-header"><i class="fa-solid fa-scale-balanced"></i>Cambios Normativos</h2>
+        <div class="risk">Decreto 412 (2024)</div>
+        <p class="stat">Nuevo nombre institucional y ajuste de estructura administrativa.</p>
+        <p class="big">USD 99’857.428</p>
+        <p class="pill"><i class="fa-solid fa-wallet"></i> Presupuesto prorrogado 2025</p>
       </article>
 
       <article class="card">
-        <span class="badge">JUEVES</span>
-        <h2>Día social + ideas</h2>
-        <ul>
-          <li>Reunión de equipo</li>
-          <li>Brainstorm de nuevas metas</li>
-          <li>Tiempo para networking</li>
-        </ul>
+        <h2 class="card-header"><i class="fa-solid fa-building-columns"></i>Directorio</h2>
+        <p class="stat">Estructura institucional conforme al Decreto Ejecutivo 412, con autoridades en funciones durante el trimestre.</p>
+        <p class="pill"><i class="fa-solid fa-user-tie"></i> Gobernanza activa</p>
       </article>
 
       <article class="card">
-        <span class="badge">VIERNES</span>
-        <h2>Cierre y celebración</h2>
-        <ul>
-          <li>Revisión de objetivos cumplidos</li>
-          <li>Ajustes para la próxima semana</li>
-          <li>Mini premio personal 🎉</li>
-        </ul>
+        <h2 class="card-header"><i class="fa-solid fa-chart-pie"></i>Líneas de Negocio</h2>
+        <div class="metric">
+          <div class="circle alt"><span>28%</span></div>
+          <div>
+            <p class="big">28%</p>
+            <p class="stat">Ejecución del frente de vivienda social</p>
+          </div>
+        </div>
       </article>
     </section>
 
-    <div class="footer">
-      <button class="btn" type="button">Añadir nueva meta</button>
-      <div class="progress" aria-label="Progreso semanal"><span></span></div>
-      <span class="small">Progreso actual: 68%</span>
-    </div>
+    <section class="grid grid-2">
+      <article class="card">
+        <h2 class="card-header"><i class="fa-solid fa-house"></i>Construcción Vivienda Social</h2>
+        <div class="metric">
+          <div class="circle alt"><span>28%</span></div>
+          <div>
+            <p class="big">28%</p>
+            <p class="stat">Convenios nuevos formalizados</p>
+          </div>
+        </div>
+
+        <div class="risk" style="margin-top:12px;">360 viviendas afectadas</div>
+
+        <div class="list">
+          <div class="list-item"><span>GAD permisos</span><span class="value">73</span></div>
+          <div class="list-item"><span>MIDUVI</span><span class="value">89</span></div>
+          <div class="list-item"><span>Contratistas</span><span class="value">198</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2 class="card-header"><i class="fa-solid fa-sack-dollar"></i>Comercialización</h2>
+        <p class="big">USD 6.7M</p>
+        <p class="stat">Ingresos estimados al cierre del 2025</p>
+
+        <div class="list" style="margin-top:15px;">
+          <div class="list-item"><span>Lirios Carcelén</span><span>USD 90.959</span></div>
+          <div class="list-item"><span>La Paz II</span><span>USD 17.223</span></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid grid-3">
+      <article class="card">
+        <h2 class="card-header"><i class="fa-solid fa-gear"></i>Servicios Especializados</h2>
+        <p class="big">USD 200.000</p>
+        <p class="stat">Total del tercer trimestre en gestión de servicios.</p>
+      </article>
+
+      <article class="card">
+        <h2 class="card-header"><i class="fa-solid fa-coins"></i>Sostenibilidad Financiera</h2>
+        <p class="stat">+10 reuniones técnicas interinstitucionales.</p>
+        <p class="stat" style="margin-top: 8px;">2 convocatorias abiertas para fortalecimiento financiero.</p>
+      </article>
+
+      <article class="card">
+        <h2 class="card-header"><i class="fa-solid fa-people-roof"></i>Déficit Habitacional</h2>
+        <p class="big">1408 / 2542</p>
+        <div class="progress" aria-label="Progreso meta anual"><span></span></div>
+        <p class="pill" style="margin-top:10px;"><i class="fa-solid fa-bullseye"></i> 55% de la meta anual</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>Informe Ejecutivo · VDUEP</span>
+      <span>Datos oficiales: julio – septiembre 2025</span>
+    </footer>
   </main>
 </body>
 </html>
